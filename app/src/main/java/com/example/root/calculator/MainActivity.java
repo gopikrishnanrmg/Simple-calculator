@@ -9,12 +9,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOError;
+import java.io.IOException;
+
 import static com.example.root.calculator.R.id.cancel_action;
 import static com.example.root.calculator.R.id.editText;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    int op,a,b,ch=0;
+    int op,a=0,b=0,ch=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,39 +125,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             case R.id.button4:{
-                op=1;
-                a=Integer.parseInt(editText.getText().toString());
-                editText.setText("");
-                if(ch==0)
-                textView.append(""+a);
+                try {
+                    op=1;
+                    a=Integer.parseInt(editText.getText().toString());
+                    editText.setText("");
+                    if(ch==0)
+                        textView.append(""+a);
+                }
+                catch (Exception e){Toast.makeText(getApplicationContext(),"no operand",Toast.LENGTH_LONG).show();}
                 break;
             }
 
             case R.id.button8:{
-                op=2;
-                a=Integer.parseInt(editText.getText().toString());
-                editText.setText("");
-                if(ch==0)
-                textView.append(""+a);
+                try {
+                    op=2;
+                    a=Integer.parseInt(editText.getText().toString());
+                    editText.setText("");
+                    if(ch==0)
+                        textView.append(""+a);
+                }
+                catch (Exception e){Toast.makeText(getApplicationContext(),"no operand",Toast.LENGTH_LONG).show();}
+
                 break;
             }
 
             case R.id.button12:{
-                op=3;
-                a=Integer.parseInt(editText.getText().toString());
-                editText.setText("");
-                if(ch==0)
-                textView.append(""+a);
+                try {
+                    op=3;
+                    a=Integer.parseInt(editText.getText().toString());
+                    editText.setText("");
+                    if(ch==0)
+                        textView.append(""+a);
+                }
+                catch (Exception e){Toast.makeText(getApplicationContext(),"no operand",Toast.LENGTH_LONG).show();}
                 break;
             }
 
             case R.id.button16:{
-                op=4;
-                a=Integer.parseInt(editText.getText().toString());
-                editText.setText("");
-                if(ch==0)
-                textView.append(""+a);
-                break;
+                try {
+                    op = 4;
+                    a = Integer.parseInt(editText.getText().toString());
+                    editText.setText("");
+                    if (ch == 0)
+                        textView.append("" + a);
+                }
+                catch (Exception e){Toast.makeText(getApplicationContext(),"no operand",Toast.LENGTH_LONG).show();}
+                    break;
             }
 
             case R.id.button13:{
@@ -168,32 +184,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             case R.id.button15:{
-                b=Integer.parseInt(editText.getText().toString());
-                ch=1;
-                switch(op)
-                {
-                    case 1:editText.setText(""+(a+b));
-                        textView.append("+"+b+"="+editText.getText().toString());
-                        break;
-                    case 2:editText.setText(""+(a-b));
-                        textView.append("-"+b+"="+editText.getText().toString());
-                        break;
-                    case 3:editText.setText(""+(a*b));
-                        textView.append("*"+b+"="+editText.getText().toString());
-                        break;
-                    case 4:if(b==0)
+                try {
+                    b=Integer.parseInt(editText.getText().toString());
+                    ch=1;
+                    switch(op)
                     {
-                        Toast.makeText(getApplicationContext(),"Division by 0 not allowed",Toast.LENGTH_LONG).show();
+                        case 1:editText.setText(""+(a+b));
+                            textView.append("+"+b+"="+editText.getText().toString());
+                            break;
+                        case 2:editText.setText(""+(a-b));
+                            textView.append("-"+b+"="+editText.getText().toString());
+                            break;
+                        case 3:editText.setText(""+(a*b));
+                            textView.append("*"+b+"="+editText.getText().toString());
+                            break;
+                        case 4:if(b==0)
+                        {
+                            Toast.makeText(getApplicationContext(),"Division by 0 not allowed",Toast.LENGTH_LONG).show();
+
+                        }
+                        else
+                        {
+                            editText.setText(""+(a/b));
+                            textView.append("/"+b+"="+editText.getText().toString());
+                        }
 
                     }
-                    else
-                    {
-                        editText.setText(""+(a/b));
-                        textView.append("/"+b+"="+editText.getText().toString());
-                    }
+                    break;
+                }catch (Exception e){Toast.makeText(getApplicationContext(),"No operands",Toast.LENGTH_LONG).show();}
 
-                }
-                break;
             }
 
 
